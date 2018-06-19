@@ -17,7 +17,7 @@
         </q-btn>
 
         <q-toolbar-title>
-          Quasar App
+          Dev Feud
           <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
         </q-toolbar-title>
       </q-toolbar>
@@ -33,7 +33,7 @@
         inset-delimiter
       >
         <q-list-header>Essential Links</q-list-header>
-        <q-item @click.native="openURL('http://quasar-framework.org')">
+        <!-- <q-item @click.native="openURL('http://quasar-framework.org')">
           <q-item-side icon="school" />
           <q-item-main label="Docs" sublabel="quasar-framework.org" />
         </q-item>
@@ -52,7 +52,7 @@
         <q-item @click.native="openURL('https://twitter.com/quasarframework')">
           <q-item-side icon="rss feed" />
           <q-item-main label="Twitter" sublabel="@quasarframework" />
-        </q-item>
+        </q-item> -->
       </q-list>
     </q-layout-drawer>
 
