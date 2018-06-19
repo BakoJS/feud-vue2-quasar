@@ -14,7 +14,7 @@
                     <button class="twelve column button-secondary" @click="addNewQuestion()">Add New Question</button>
                         <input class="u-full-width" type="text" v-model="searchText" placeholder="Search Questions">
                     <ul class="container-list">
-                        <li v-for="q in questionDB | filterBy searchText" >
+                        <li v-for="q in filteredQuestionDB" >
                             <a href="javascript:void(0)"
                                 :class="{'active': (q.QuestionID == activeQuestion)}"
                                 class="list-link"
@@ -80,6 +80,14 @@ export default {
       AnswerText: ""
     },
     upvotedAnswers: []
+  },
+  computed: {
+    filteredQuestionDB () {
+      var self = this
+      return self.questionDB.filter(function ( question ) {
+        return question.QuestionText.indexOf( self.searchText ) !== -1
+      })
+    },
   },
   http: {},
   created: function() {
