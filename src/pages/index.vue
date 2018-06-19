@@ -106,7 +106,7 @@ export default {
     this.changeUser(1);
     this.idxQuestions = {};
     axiosInstance.get("/questions").then(function(res) {
-      _self.questionDB = res.body;
+      _self.questionDB = res.data;
       _self.questionDB.forEach(function(q, i) {
         _self.idxQuestions[q.QuestionID] = q;
       });
