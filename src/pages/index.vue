@@ -67,6 +67,7 @@ export default {
   data () {
     return {
       activeUser: 1,
+      activeQuestion: -1,
       userList: [
         { id: 1, name: "Admin" },
         { id: 2, name: "User 1" },
