@@ -60,6 +60,8 @@
 </style>
 
 <script>
+import { axiosInstance } from 'plugins/axios'
+
 export default {
   name: 'PageIndex',
   data () {
@@ -103,7 +105,7 @@ export default {
     var _self = this;
     this.changeUser(1);
     this.idxQuestions = {};
-    this.$http.get("http://localhost:3000/questions").then(function(res) {
+    axiosInstance.get("/questions").then(function(res) {
       _self.questionDB = res.body;
       _self.questionDB.forEach(function(q, i) {
         _self.idxQuestions[q.QuestionID] = q;
@@ -117,8 +119,8 @@ export default {
     },
     getUserVotes: function() {
       var _self = this;
-      this.$http
-        .post("http://localhost:3000/uservotes", { userID: this.activeUser })
+      axiosInstance
+        .post("/uservotes", { userID: this.activeUser })
         .then(function(res) {
           console.log(res);
           _self.upvotedAnswers = res.body;
@@ -134,8 +136,8 @@ export default {
     },
     saveQuestion: function() {
       var _self = this;
-      this.$http
-        .post("http://localhost:3000/question", {
+      axiosInstance
+        .post("/question", {
           questionID: this.formData.QuestionID,
           questionText: this.formData.QuestionText
         })
@@ -155,8 +157,8 @@ export default {
     addAnswer: function() {
       if (this.formData.AnswerText == "") return false;
       var _self = this;
-      this.$http
-        .post("http://localhost:3000/answer", {
+      axiosInstance
+        .post("/answer", {
           questionID: this.formData.QuestionID,
           answerText: this.formData.AnswerText,
           userID: this.activeUser
@@ -173,8 +175,8 @@ export default {
       var _self = this;
       var wasUpvoted = this.upvotedAnswers.indexOf(answer.AnswerID) != -1;
       var endpoint = wasUpvoted ? "unvote" : "vote";
-      this.$http
-        .post("http://localhost:3000/" + endpoint, {
+      axiosInstance
+        .post("/" + endpoint, {
           answerID: answer.AnswerID,
           userID: this.activeUser
         })
