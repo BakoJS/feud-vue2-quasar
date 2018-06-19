@@ -62,24 +62,26 @@
 <script>
 export default {
   name: 'PageIndex',
-  data: {
-    activeUser: 1,
-    userList: [
-      { id: 1, name: "Admin" },
-      { id: 2, name: "User 1" },
-      { id: 3, name: "User 2" },
-      { id: 4, name: "User 3" },
-      { id: 5, name: "User 4" }
-    ],
-    questionDB: [],
-    searchText: "",
-    idxQuestions: {},
-    formData: {
-      QuestionID: 0,
-      QuestionText: "",
-      AnswerText: ""
-    },
-    upvotedAnswers: []
+  data () {
+    return {
+      activeUser: 1,
+      userList: [
+        { id: 1, name: "Admin" },
+        { id: 2, name: "User 1" },
+        { id: 3, name: "User 2" },
+        { id: 4, name: "User 3" },
+        { id: 5, name: "User 4" }
+      ],
+      questionDB: [],
+      searchText: "",
+      idxQuestions: {},
+      formData: {
+        QuestionID: 0,
+        QuestionText: "",
+        AnswerText: ""
+      },
+      upvotedAnswers: []
+    }
   },
   computed: {
     filteredQuestionDB () {
