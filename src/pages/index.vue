@@ -123,12 +123,15 @@ export default {
       axiosInstance
         .post("/uservotes", { userID: this.activeUser })
         .then(function(res) {
-          console.log(res);
-          _self.upvotedAnswers = res.body;
+          _self.upvotedAnswers = res.data;
         });
     },
     checkVote: function(answer) {
-      return this.upvotedAnswers.indexOf(answer.AnswerID) != -1 ? "fas" : "far";
+      if( Array.isArray( this.upvotedAnswers ) ){
+        return this.upvotedAnswers.indexOf(answer.AnswerID) != -1 ? "fas" : "far";
+      } else {
+        return "far";
+      }
     },
     editQuestion: function(question) {
       this.formData.QuestionID = question.QuestionID;
@@ -143,8 +146,7 @@ export default {
           questionText: this.formData.QuestionText
         })
         .then(function(res) {
-          var result = res.body[0];
-          console.log(result);
+          var result = res.data[0];
           for (var i in result) {
             _self.idxQuestions[result.QuestionID][i] = result[i];
           }
@@ -165,12 +167,15 @@ export default {
           userID: this.activeUser
         })
         .then(function(res) {
-          var result = res.body;
+          var result = res.data;
 
           _self.idxQuestions[_self.formData.QuestionID]["Answers"].push(result);
           _self.upvotedAnswers.push(result.AnswerID);
           _self.formData.AnswerText = "";
         });
+    },
+    deleteAnswer: function() {
+      alert( 'No deleting answers' );
     },
     toggleVote: function(answer) {
       var _self = this;
@@ -183,7 +188,6 @@ export default {
         })
         .then(function(res) {
           var result = res.body;
-            console.log(result);
           for (var i in result) {
             answer[i] = result[i];
           }
