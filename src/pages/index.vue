@@ -177,6 +177,9 @@ export default {
     deleteAnswer: function() {
       alert( 'No deleting answers' );
     },
+    addNewQuestion: function() {
+      alert( 'Adding Question' );
+    },
     toggleVote: function(answer) {
       var _self = this;
       var wasUpvoted = this.upvotedAnswers.indexOf(answer.AnswerID) != -1;
@@ -187,7 +190,7 @@ export default {
           userID: this.activeUser
         })
         .then(function(res) {
-          var result = res.body;
+          var result = res.data;
           for (var i in result) {
             answer[i] = result[i];
           }
