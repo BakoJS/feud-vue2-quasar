@@ -32,7 +32,7 @@
 
                         <div class="six columns">
                             <ul>
-                                <li v-for="a in getQuestionAnswers() | orderBy 'AnswerText'" >
+                                <li v-for="a in orderedQuestionAnswers" >
                                     <span class="text-block">{{a.AnswerText}}</span>
                                     <span class="count">{{a.AnswerVotes}}</span>
                                     <a href="javascript:void(0)" @click="toggleVote(a)" class="icon-list-block"><i :class="checkVote(a)" class="fa-heart"></i></a>
@@ -88,6 +88,13 @@ export default {
         return question.QuestionText.indexOf( self.searchText ) !== -1
       })
     },
+    orderedQuestionAnswers () {
+      if (this.idxQuestions.hasOwnProperty(this.formData.QuestionID)){
+        return  _.orderBy( this.idxQuestions[this.formData.QuestionID].Answers , 'QuestionText');
+      } else {
+        return [];
+      }
+    }
   },
   http: {},
   created: function() {
