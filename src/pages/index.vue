@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="four columns"><h3 class="section-heading">Developer Feud</h3></div>
                 <div class="eight columns">
-                    <button style="margin-right:6px" v-for="u in userList" :class="{'active': (u.id == activeUser)}" @click="changeUser(u.id)">{{u.name}}</button>
+                    <button style="margin-right:6px" v-for="u in userList" :key="u.id" :class="{'active': (u.id == activeUser)}" @click="changeUser(u.id)">{{u.name}}</button>
                 </div>
             </div>
 
@@ -14,7 +14,7 @@
                     <button class="twelve column button-secondary" @click="addNewQuestion()">Add New Question</button>
                         <input class="u-full-width" type="text" v-model="searchText" placeholder="Search Questions">
                     <ul class="container-list">
-                        <li v-for="q in filteredQuestionDB" >
+                        <li v-for="q in filteredQuestionDB" :key="q.QuestionID" >
                             <a href="javascript:void(0)"
                                 :class="{'active': (q.QuestionID == activeQuestion)}"
                                 class="list-link"
@@ -32,7 +32,7 @@
 
                         <div class="six columns">
                             <ul>
-                                <li v-for="a in orderedQuestionAnswers" >
+                                <li v-for="a in orderedQuestionAnswers" :key="a.AnswerText">
                                     <span class="text-block">{{a.AnswerText}}</span>
                                     <span class="count">{{a.AnswerVotes}}</span>
                                     <a href="javascript:void(0)" @click="toggleVote(a)" class="icon-list-block"><i :class="checkVote(a)" class="fa-heart"></i></a>
