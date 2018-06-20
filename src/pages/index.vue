@@ -67,7 +67,6 @@ export default {
   data () {
     return {
       activeUser: 1,
-      activeQuestion: -1,
       userList: [
         { id: 1, name: "Admin" },
         { id: 2, name: "User 1" },
@@ -147,8 +146,15 @@ export default {
         })
         .then(function(res) {
           var result = res.data[0];
+          if (_self.idxQuestions.hasOwnProperty(result.QuestionID)){
           for (var i in result) {
             _self.idxQuestions[result.QuestionID][i] = result[i];
+          }
+          } else {
+            _self.questionDB.push(result);
+            var question = _self.questionDB[_self.questionDB.length-1];
+            _self.idxQuestions[result.QuestionID] = question;
+            _self.editQuestion(question);
           }
         });
     },
