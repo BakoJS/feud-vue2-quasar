@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page :padding="true">
     <div id="feud_admin" class="section categories">
         <div class="container">
             <div class="row">
@@ -16,7 +16,7 @@
                     <ul class="container-list">
                         <li v-for="q in filteredQuestionDB" :key="q.QuestionID" >
                             <a href="javascript:void(0)"
-                                :class="{'active': (q.QuestionID == activeQuestion)}"
+                                :class="{'active': (q.QuestionID == formData.QuestionID)}"
                                 class="list-link"
                                 @click="editQuestion(q)">{{q.QuestionText}}</a>
                         </li>
@@ -26,7 +26,7 @@
                     <label for="">Question</label>
                     <div class="row" style="padding: 5px">
                             <textarea class="eight columns" v-model="formData.QuestionText"></textarea>
-                            <button class=" four columns button-secondary" @click="saveQuestion()">Save Question</button>
+                            <button class="four columns button-secondary" @click="saveQuestion()">Save Question</button>
                     </div>
                     <div class="row">
 
@@ -147,9 +147,9 @@ export default {
         .then(function(res) {
           var result = res.data[0];
           if (_self.idxQuestions.hasOwnProperty(result.QuestionID)){
-          for (var i in result) {
-            _self.idxQuestions[result.QuestionID][i] = result[i];
-          }
+            for (var i in result) {
+              _self.idxQuestions[result.QuestionID][i] = result[i];
+            }
           } else {
             _self.questionDB.push(result);
             var question = _self.questionDB[_self.questionDB.length-1];
@@ -183,9 +183,12 @@ export default {
     deleteAnswer: function() {
       alert( 'No deleting answers' );
     },
-    addNewQuestion: function() {
-      alert( 'Adding Question' );
+    addNewQuestion: function () {
+      this.formData.QuestionID = 0;
+      this.formData.QuestionText = "";
+      this.formData.AnswerText = "";
     },
+
     toggleVote: function(answer) {
       var _self = this;
       var wasUpvoted = this.upvotedAnswers.indexOf(answer.AnswerID) != -1;
